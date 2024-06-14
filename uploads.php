@@ -38,13 +38,14 @@ function getIDByUsername($username) {
     return $user_id;
 }
 
-function savePost($username, $path_image) {
+function savePost($username, $path_image, $caption) {
     global $conn;
     $userid = getIDByUsername($username);
     try {
-        $stmt = $conn->prepare("INSERT INTO post (userid,image) VALUES (:userid, :image)");
+        $stmt = $conn->prepare("INSERT INTO post (userid,caption ,image) VALUES (:userid, :caption, :image)");
         $stmt->bindParam(":image", $path_image);
         $stmt-> bindParam(":userid", $userid);
+        $stmt-> bindParam(":caption", $caption);
         if(!$stmt->execute()) {
             echo "Upload Post Failed";
         }
@@ -60,14 +61,6 @@ $allowFormat = array("jpg", "jpeg", "png");
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
     $uploadOK = 0;
 
-    // Check Image size
-    if($_FILES["image"]["size"] > 500000) {
-        echo "</br>Image is too large</br>";
-        $uploadOK = 0;
-    } else {
-        $uploadOK = 1;
-    }
-
     // Check image format
     if(!in_array(strtolower(pathinfo($target_file, PATHINFO_EXTENSION)), $allowFormat)) {
         echo "</br>This Format is not supported</br>";
@@ -80,7 +73,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
 
 if($uploadOK == 1) {
     if(move_uploaded_file($_FILES["image"]["tmp_name"], $target_file) == true) {
-        savePost($_SESSION["username"], $target_file);
+        savePost($_SESSION["username"], $target_file, $_POST["caption"]);
     }
 } else {
     echo "</br>Failed to upload an image</br>";
