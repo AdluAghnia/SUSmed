@@ -74,6 +74,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
 if($uploadOK == 1) {
     if(move_uploaded_file($_FILES["image"]["tmp_name"], $target_file) == true) {
         savePost($_SESSION["username"], $target_file, $_POST["caption"]);
+        header("Location: index.php");
     }
 } else {
     echo "</br>Failed to upload an image</br>";
