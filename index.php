@@ -1,4 +1,5 @@
 <?php
+include "koneksi.php";
 session_start();
 
 if($_SESSION["username"] == "") {
@@ -29,18 +30,24 @@ if($_SESSION["username"] == "") {
         <br>
         <button type="submit" name="submit">Upload</button>
     </form>
-</body>
-</html>
-
-<?php
-function showPost(){
+    <?php
     global $conn;
     $stmt = $conn->prepare('SELECT * FROM post');
 
-    if($stmt->execute()) {
-        
+    if($stmt-> execute()) {
+        $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if($posts) {
+            foreach($posts as $post) {
+                echo "<div class='post'>";
+                echo "<img src='" . htmlspecialchars($post['image']) . "' alt='" . htmlspecialchars($post['caption']) . "'>";
+                echo "<p>" . htmlspecialchars($post['caption']) . "</p>";
+                echo "</div>";
+            }
+        } else {
+            echo "Post Not Found";
+        }
     }
-}
+    ?>
+</body>
+</html>
 
-showPost();
-?>
