@@ -5,6 +5,21 @@ session_start();
 if($_SESSION["username"] == "") {
     header("Location: login.php");
 }
+
+
+function getUsernameByID($id) {
+    global $conn;
+
+    $stmt = $conn->prepare("SELECT username FROM users WHERE id=:id");
+    $stmt->bindParam(":id", $id);
+
+    if($stmt ->execute()) {
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row["username"];
+    }
+
+    return null;
+}
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +45,7 @@ if($_SESSION["username"] == "") {
         <br>
         <button type="submit" name="submit">Upload</button>
     </form>
-    <?php
+<?php
     global $conn;
     $stmt = $conn->prepare('SELECT * FROM post');
 
@@ -39,6 +54,10 @@ if($_SESSION["username"] == "") {
         if($posts) {
             foreach($posts as $post) {
                 echo "<div class='post'>";
+                $username = getUsernameByID($post["userid"]);
+                if($username) {
+                    echo "<p>". htmlspecialchars($username). "</p>";
+                }
                 echo "<img src='" . htmlspecialchars($post['image']) . "' alt='" . htmlspecialchars($post['caption']) . "'>";
                 echo "<p>" . htmlspecialchars($post['caption']) . "</p>";
                 echo "</div>";
