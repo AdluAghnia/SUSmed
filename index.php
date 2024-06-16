@@ -47,7 +47,7 @@ function getUsernameByID($id) {
     </form>
 <?php
     global $conn;
-    $stmt = $conn->prepare('SELECT * FROM post');
+    $stmt = $conn->prepare('SELECT * FROM posts');
 
     if($stmt-> execute()) {
         $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);

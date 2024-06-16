@@ -42,7 +42,7 @@ function savePost($username, $path_image, $caption) {
     global $conn;
     $userid = getIDByUsername($username);
     try {
-        $stmt = $conn->prepare("INSERT INTO post (userid,caption ,image) VALUES (:userid, :caption, :image)");
+        $stmt = $conn->prepare("INSERT INTO posts (userid,caption ,image) VALUES (:userid, :caption, :image)");
         $stmt->bindParam(":image", $path_image);
         $stmt-> bindParam(":userid", $userid);
         $stmt-> bindParam(":caption", $caption);

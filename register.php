@@ -25,7 +25,7 @@ function saveUser ($username, $password) {
 
             // excute the statment
             if($smst->execute()) {
-                return "User successfully registered";
+                header("Location: login.php");
             } else {
                 return "Failed to save a user";
             }
@@ -54,8 +54,7 @@ function saveUser ($username, $password) {
         <button type="submit">Register</button>
     </form>
 <?php
-$message = saveUser($_POST["username"], $_POST["password"]);
-echo $message;  
+saveUser($_POST["username"], $_POST["password"]); 
 ?>
 </body>
 </html>
