@@ -1,43 +1,8 @@
 <?php
-include "koneksi.php"; 
-function registerValidation($username, $password) {
-    if (strlen($username) < 3) {
-        return false;
-    }
-
-    if (strlen($password) < 6) {
-        return false;
-    }
-    return true;
-}
-
-function saveUser ($username, $password) {
-    global $conn;
-
-    try {
-        if (registerValidation($username, $password)) {
-            $hash_password = password_hash($password, PASSWORD_BCRYPT);
-            $smst = $conn-> prepare("INSERT INTO users (username, password)
-            VALUES (:username, :password)");
-
-            $smst->bindParam(":username", $username);
-            $smst->bindParam(":password", $hash_password);
-
-            // excute the statment
-            if($smst->execute()) {
-                header("Location: login.php");
-            } else {
-                return "Failed to save a user";
-            }
-        } else {
-            return "please check your username and password";
-        }    
-    } catch (PDOException $e) { 
-        echo "Database error : " . $e->getMessage();
-    }
-}
+include "models/user.php";
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,7 +19,13 @@ function saveUser ($username, $password) {
         <button type="submit">Register</button>
     </form>
 <?php
-saveUser($_POST["username"], $_POST["password"]); 
+// saveUser($_POST["username"], $_POST["password"]);
+$newUser = new User($_POST["username"], $_POST["password"]);
+if($newUser->userRegister()) {
+    echo "Berhasil Register";
+} else {
+    echo "Failed";
+}
 ?>
 </body>
 </html>
