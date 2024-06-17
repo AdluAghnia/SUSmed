@@ -1,33 +1,21 @@
 <?php 
 session_start();
-include "koneksi.php";
+include "models/user.php";
 
-// Checking username and password
-function checkUser ($username, $password)  {
-    global $conn;
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST["username"];
+    $passsword = $_POST["password"];
 
-    try {
-        if($_SERVER["REQUEST_METHOD"] == "POST"){
-            $stmt = $conn-> prepare("SELECT password FROM users WHERE username=:username");
-            $stmt->bindParam(":username", $username);
-            if ($stmt ->execute()) {
-                if ($stmt -> rowCount() > 0) {
-                    $rows = $stmt->fetch(PDO::FETCH_ASSOC);
-                    if (password_verify($password, $rows["password"])) {
-                        $_SESSION["username"] = $username;
-                        header("Location: index.php");
-                    } else {
-                        echo "Invalid username or password 1";
-                    }
-                } else {
-                    echo "Invalid username or password 2";
-                }
-            } else {
-                echo "Something, wrong failed to login";
-            }
-       }
-    } catch (PDOException $e) {
-        echo "Error : " . $e->getMessage();
+    $user = new User($username, $passsword);
+    if($user->userLogin()) {
+        $_SESSION["username"] = $username;
+        echo "<p>Login Success</p>";
+        ob_start();
+        header("Location: index.php");
+        ob_end_flush();
+        exit();
+    } else {
+        echo "<p>Login Failed</p>";
     }
 }
 ?>
@@ -50,8 +38,5 @@ function checkUser ($username, $password)  {
 </form>
 <a href="register.php">Sign Up</a>
 
-<?php 
-checkUser($_POST["username"], $_POST["password"])
-?> 
 </body>
 </html>

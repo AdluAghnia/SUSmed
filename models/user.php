@@ -29,23 +29,26 @@ class User {
     function userLogin() {
         global $conn;
         try {
-            if($_SERVER["REQUEST_METHOD"] == "POST") {
-                $stmt = $conn->prepare("SELECT password FROM user 
-                WHERE username=:username");
-                $stmt->bindParam(":username", $this->username);
+            $stmt = $conn->prepare("SELECT password FROM users 
+            WHERE username=:username");
+            $stmt->bindParam(":username", $this->username);
 
-                if(!$stmt->execute()) {
-                    return false;                    
-                }
-
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                if (!password_verify($this->password, $row["password"])) {
-                    return false;
-                }
-                
-                return true;
+            if(!$stmt->execute()) {
+                echo "<p>Login Failed : Something Wrong</p>";
+                return false;                    
             }
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($row === false) {
+                echo "<p>Username Not Found</p>";
+                return false;
+            }
+            if (!password_verify($this->password, $row["password"])) {
+                echo "<p>Please Check your username or password</p>";
+                return false;
+            }
+
+            return true;
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
         }
