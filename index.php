@@ -33,7 +33,8 @@ function getUsernameByID($id) {
     <form action="uploads.php" method="post" enctype="multipart/form-data">
         <label for="name">Name : </label>
         <?php 
-        echo '<p name="name" id="name">' . htmlspecialchars($_SESSION["username"]) . '</p>'
+        echo '<p name="userid" id="userid">' . htmlspecialchars($_SESSION["userid"]) . '</p>';
+        echo '<p name="name" id="name">' . htmlspecialchars($_SESSION["username"]) . '</p>';
         ?>
 
         <label for="caption"> Caption : </label>

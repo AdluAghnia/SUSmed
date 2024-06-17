@@ -10,7 +10,7 @@ class User {
         $this->password = $password;
     }
     
-    function getUsernameByID($id) {
+    public static function getUsernameByID($id) {
         global $conn;
         
         try {
@@ -23,6 +23,21 @@ class User {
             }
         } catch (PDOException $e) {
             echo "". $e->getMessage();
+        }
+   }
+
+   function getUserID () {
+        global $conn;
+        try {
+            $stmt = $conn->prepare("SELECT id FROM users WHERE username=:username");
+            $stmt->bindParam(":username", $this->username);
+
+            if ($stmt->execute()) {
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $row["id"];
+            }
+        } catch (PDOException $e) {
+            echo "Error : ". $e->getMessage();
         }
    }
 
