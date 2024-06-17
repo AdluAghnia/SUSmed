@@ -7,7 +7,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $passsword = $_POST["password"];
 
     $user = new User($username, $passsword);
+    $userid = $user->getUserID();
     if($user->userLogin()) {
+        $_SESSION["userid"] = $userid;
         $_SESSION["username"] = $username;
         echo "<p>Login Success</p>";
         ob_start();
