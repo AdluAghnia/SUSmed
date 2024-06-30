@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreCommentRequest;
-use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
-
+use Illuminate\Http\Request;
 class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($post_id)
     {
-        //
+        $comments = Comment::latest()->where("post_id", $post_id);
+    
+        return view('partials.comment', ["comments"=>$comments]);
     }
 
     /**
@@ -21,15 +21,27 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        return view("partials.add-comment");
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCommentRequest $request)
+    public function store(Request $request, $post_id)
     {
-        //
+        $request->validate([
+            'comment' => 'required|min:5',
+        ]);
+
+        try {
+            Comment::create([
+                "user_id" => auth()->id(),
+                "post_id" => $post_id,
+                "comment" => $request->coment,
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**
@@ -51,7 +63,7 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCommentRequest $request, Comment $comment)
+    public function update(Request $request, Comment $comment)
     {
         //
     }
