@@ -30,6 +30,9 @@
                         <img class="w-full h-auto rounded" src="{{ asset('storage/posts/' . $post->image) }}" alt="post_image" >
                     </div>
                 @endif
+                    <div id="like-button-{{ $post->id }}">
+                        @include('partials.like', ['post' => $post])
+                    </div>
                 </div>
                 @empty
                     <div class="text-center">

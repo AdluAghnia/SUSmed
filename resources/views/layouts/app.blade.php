@@ -10,8 +10,14 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        <script src="https://unpkg.com/htmx.org@1.7.0"></script>
         <!-- Scripts -->
+        <script src="https://unpkg.com/htmx.org@1.7.0"></script>
+        <script>
+            document.addEventListener('htmx:configRequest', (event) => {
+                const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                event.detail.headers['X-CSRF-TOKEN'] = token;
+            });
+        </script>
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
