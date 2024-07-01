@@ -11,7 +11,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('posts', PostController::class)->except('index');
     Route::post('/post/{postId}/like', [LikeController::class,'likePost'])->name('like.post');
     Route::delete('/post/{postId}/unlike', [LikeController::class, 'unlikePost'])->name('unlike.post');
-    Route::post ('/post/{postId}/comment', [CommentController::class,''])->name('comment.add'); 
+    Route::post ('/comment/{postId}/', [CommentController::class,'store'])->name('comment.add'); 
     Route::get('/dashboard', [PostController::class,'showPostByID'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

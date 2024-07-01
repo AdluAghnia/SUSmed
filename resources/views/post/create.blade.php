@@ -7,7 +7,10 @@
     </div>
     <div class="mb-4">
         <label for="image" class="block text-gray-700 dark:text-gray-200">Image</label>
-        <input type="file" name="image" id="image" class="mt-1 block w-full text-gray-700 dark:text-gray-200" onchange="previewImage(event)">
+        <input
+         type="file"
+         class="file-input file-input-bordered file-input-primary w-full max-w-xs"
+         onchange="previewImage(event)"/>
         <x-input-error :messages="$errors->get('image')" class="mt-2" />     
         <!-- Image preview -->
         <div class="mt-4">

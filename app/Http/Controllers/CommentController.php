@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+
 class CommentController extends Controller
 {
     /**
@@ -37,11 +38,13 @@ class CommentController extends Controller
             Comment::create([
                 "user_id" => auth()->id(),
                 "post_id" => $post_id,
-                "comment" => $request->coment,
+                "comment" => $request->comment,
             ]);
         } catch (\Throwable $th) {
-            //throw $th;
+            return back()->withErrors(["msg" => $th->getMessage()]);
         }
+
+        return back()->with('success', 'Comment added succesfully');
     }
 
     /**
