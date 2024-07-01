@@ -7,22 +7,11 @@ use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index($post_id)
     {
-        $comments = Comment::latest()->where("post_id", $post_id);
+        $comments = Comment::where('post_id', $post_id)->get();
     
-        return view('partials.comment', ["comments"=>$comments]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view("partials.add-comment");
+        return view('partials.comments', compact('comments'));
     }
 
     /**
@@ -47,35 +36,4 @@ class CommentController extends Controller
         return back()->with('success', 'Comment added succesfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Comment $comment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Comment $comment)
-    {
-        //
-    }
 }
