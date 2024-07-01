@@ -9,6 +9,8 @@
         <label for="image" class="block text-gray-700 dark:text-gray-200">Image</label>
         <input
          type="file"
+         id="image"
+         name="image"
          class="file-input file-input-bordered file-input-primary w-full max-w-xs"
          onchange="previewImage(event)"/>
         <x-input-error :messages="$errors->get('image')" class="mt-2" />     
@@ -37,4 +39,3 @@ function previewImage(event) {
     reader.readAsDataURL(input.files[0]);
 }
 </script>
-
