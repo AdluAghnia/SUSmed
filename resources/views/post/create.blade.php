@@ -2,7 +2,7 @@
     @csrf
     <div class="mb-4">
        <label for="caption" class="block text-gray-700 dark:text-gray-200">Caption</label>
-       <input type="text" name="caption" id="caption" class="mt-1 block w-full rounded-md bg-gray-100 dark:bg-gray-700 border-transparent focus:border-gray-500 focus:bg-white dark:focus:bg-gray-600 dark:text-gray-200">
+       <textarea name="caption" id="caption" class="textarea textarea-primary textarea-lg w-full max-w-xs" placeholder="Type here ...."></textarea>
        <x-input-error :messages="$errors->get('caption')" class="mt-2" /> 
     </div>
     <div class="mb-4">
