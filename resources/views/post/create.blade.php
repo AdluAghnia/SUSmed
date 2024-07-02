@@ -20,9 +20,7 @@
         </div>
     </div>
     <div class="flex justify-end">
-        <x-primary-button class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 dark:bg-blue-700 dark:hover:bg-blue-800">
-            {{ __('Create') }}
-        </x-primary-button>
+       <button class="btn btn-primary">Create Post</button>
     </div>
 </form>
 

@@ -59,6 +59,7 @@ class PostController extends Controller
         }        
     }
 
+    // Show Post By Auth User ID
     public function showPostByID() {
         $user = User::findOrFail(auth()->id());
         $posts = $user->posts()->latest()->paginate(10);

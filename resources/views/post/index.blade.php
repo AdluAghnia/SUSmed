@@ -5,7 +5,7 @@
                hx-get="{{ route('posts.create') }}" 
                hx-target="#new-post-form" 
                hx-swap="outerHTML"
-               class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300 dark:bg-blue-700 dark:hover:bg-blue-800">
+               class="btn btn-primary">
                 NEW POST
             </a>
         </div>
@@ -31,17 +31,10 @@
                     </div>
                     <div id="comment-form">
                         @include('partials.add-comment', ['post' => $post])
+                            
                     </div>
 
-                    <div id="show-all-comments-{{ $post->id }}">
-                        <a href="#" 
-                           hx-get="{{ route('comments.index', $post->id) }}" 
-                           hx-target="#show-all-comments-{{ $post->id }}" 
-                           hx-swap="outerHTML"
-                           class="text-blue-500 hover:underline">
-                            Show all comments...
-                        </a>
-                    </div>
+                    
                 </div>
                 @empty
                 <div class="text-center">

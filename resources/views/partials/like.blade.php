@@ -5,7 +5,7 @@
             hx-delete="{{ route('unlike.post', $post->id) }}"
             hx-target="#like-button-{{ $post->id }}"
             hx-swap="outerHTML"
-            class="py-2 px-4 rounded bg-red-500 text-white">
+            class="btn btn-primary">
             Unlike
         </button>
     @else
@@ -13,7 +13,7 @@
             hx-post="{{ route('like.post', $post->id) }}"
             hx-target="#like-button-{{ $post->id }}"
             hx-swap="outerHTML"
-            class="py-2 px-4 rounded bg-gray-500 text-white">
+            class="btn btn-outline btn-primary">
             Like
         </button>
     @endif
