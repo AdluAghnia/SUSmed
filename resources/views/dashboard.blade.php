@@ -21,6 +21,8 @@
                         <img class="w-full h-auto rounded" src="{{ asset('storage/posts/' . $post->image) }}" alt="post_image" >
                     </div>
                 @endif
+                <button type="button" class="btn btn-info">Edit</button>
+                <button type="button" class="btn btn-error">Delete</button>
                 </div>
                 @empty
                     <div class="text-center">
