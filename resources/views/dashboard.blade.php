@@ -29,6 +29,8 @@
                             edit
                         </button>
 
+                        <button hx-delete="{{ route('post.delete') }}" hx-target="closest div"
+                            hx-swap="outerHTML">Delete</button>
                         <div id="edit-form-{{ $post->id }}">
 
                         </div>
