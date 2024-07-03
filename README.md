@@ -11,7 +11,6 @@ Follow these steps to set up and run the application:
    git clone https://github.com/AdluAghnia/SUSmed.git
    cd SUSmed
 ```
-    Set Up Environment Variables:```
 
 2. **Set Up Enviroment Variables**
 ```
