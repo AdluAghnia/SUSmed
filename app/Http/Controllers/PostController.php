@@ -15,7 +15,7 @@ class PostController extends Controller
     {
         $posts = Post::latest()->paginate(10);
 
-        return view("post.index", compact("posts"));
+        return view('post.index', compact('posts'));
     }
 
     /**
@@ -23,7 +23,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view("post.create");
+        return view('post.create');
     }
 
     /**
@@ -33,38 +33,39 @@ class PostController extends Controller
     {
         // Validate form
         $request->validate([
-            'image' => 'sometimes|image|mimes:jpeg,jpg,png|max:51200',
+            'image' => 'image|mimes:jpeg,jpg,png|max:51200',
             'caption' => 'required|min:5',
         ]);
 
-        if (!$request->hasFile("image")) {
+        if (! $request->hasFile('image')) {
             return back()->withErrors(['image' => 'Image not uploaded']);
         }
 
-        $image = $request->file("image");
+        $image = $request->file('image');
 
         try {
-            $image->storeAs("public/posts", $image->hashName());
+            $image->storeAs('public/posts', $image->hashName());
 
             Post::create([
-                "image" => $image->hashName(),
-                "caption" => $request->caption,
-                "user_id" => auth()->id(),
+                'image' => $image->hashName(),
+                'caption' => $request->caption,
+                'user_id' => auth()->id(),
             ]);
 
             return redirect('/')->with('success', 'Create Post Success');
 
         } catch (\Exception $e) {
-            return back()->withErrors(["image" => $e->getMessage()]);
-        }        
+            return back()->withErrors(['image' => $e->getMessage()]);
+        }
     }
 
     // Show Post By Auth User ID
-    public function showPostByID() {
+    public function showPostByID()
+    {
         $user = User::findOrFail(auth()->id());
         $posts = $user->posts()->latest()->paginate(10);
 
-        return view("dashboard", compact("posts"));
+        return view('dashboard', compact('posts'));
     }
 
     /**
@@ -80,15 +81,26 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view("partials.edit");
+        return view('post.edit', compact('post'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'caption' => 'required|min:5',
+            'image' => 'image|mimes:jpeg,jpg,png|max:51200',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $image->storeAs('public/posts', $image->hashName());
+            $post->image = $image->hashName();
+        }
+
+        $post->caption = $request->caption;
+        $post->save();
+
+        return redirect()->route('dashboard')->with('success', 'Post updated successfully.');
     }
 
     /**
