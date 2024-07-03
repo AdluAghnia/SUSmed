@@ -10,7 +10,7 @@ Follow these steps to set up and run the application:
 ```sh
    git clone https://github.com/AdluAghnia/SUSmed.git
    cd SUSmed
-
+```
     Set Up Environment Variables:```
 
 2. **Set Up Enviroment Variables**
@@ -52,7 +52,7 @@ npm run build
 ```
 Additional Information
 
-    Development Server: To start the development server, use the command:
+Development Server: To start the development server, use the command:
 ```sh
 php artisan serve
 ```
@@ -60,7 +60,7 @@ Running Vite in Development Mode: To start the Vite development server, use the 
 ```sh
 npm run dev
 ```
-    Accessing the Application: Once the development server is running, you can access the application in your browser at http://localhost:8000.
+Accessing the Application: Once the development server is running, you can access the application in your browser at http://localhost:8000.
 
 Contributing
 
