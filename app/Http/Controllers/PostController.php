@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -94,6 +95,7 @@ class PostController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $image->storeAs('public/posts', $image->hashName());
+            Storage::delete('public/posts/'.$post->image);
             $post->image = $image->hashName();
         }
 
