@@ -11,7 +11,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('posts', PostController::class)->except('index', 'edit', 'update', 'destroy');
     Route::get('posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
     Route::patch('posts/{post}', [PostController::class, 'update'])->name('posts.update');
-    //    Route::delete('post/{post}', [PostController::class], 'destroy')->name('posts.delete');
+    Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
     Route::post('/post/{postId}/like', [LikeController::class, 'likePost'])->name('like.post');
     Route::delete('/post/{postId}/unlike', [LikeController::class, 'unlikePost'])->name('unlike.post');
     Route::get('/comments/{post}', [CommentController::class, 'index'])->name('comments.index');

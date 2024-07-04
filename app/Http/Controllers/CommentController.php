@@ -32,7 +32,9 @@ class CommentController extends Controller
         } catch (\Throwable $th) {
             return back()->withErrors(['msg' => $th->getMessage()]);
         }
+        $comments = Comment::where('post_id', $post_id)->get();
+        $response = view('partials.comments', compact('comments'))->render();
 
-        return back()->with('success', 'Comment added succesfully');
+        return response($response);
     }
 }

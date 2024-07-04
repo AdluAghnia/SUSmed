@@ -108,5 +108,23 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($post_id) {}
+    public function destroy($post_id)
+    {
+        try {
+            $post = Post::findOrFail($post_id);
+
+            Storage::delete('public/posts/'.$post->image);
+
+            $post->delete();
+
+            $user = User::findOrFail(auth()->id());
+            $posts = $user->posts()->latest()->paginate(10);
+
+            $response = view('partials.post-dashboard', compact('posts'))->render();
+
+            return response($response);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 }
