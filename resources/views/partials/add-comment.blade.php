@@ -1,6 +1,6 @@
 <div id="comment-section-{{ $post->id }}">
-    <form method="post" hx-swap="none" hx-target="#show-all-comments-{{ $post->id }}"
-        hx-post="{{ route('comment.store', $post->id) }}" class="mb-4">
+    <form method="post" hx-post="{{ route('comment.store', $post->id) }}"
+        hx-target="#show-all-comments-{{ $post->id }}" hx-swap="beforeend" class="mb-4">
         @csrf
         <label for="comment" class="block text-gray-700 dark:text-gray-200">Comment</label>
         <input type="text" name="comment" id="comment"
@@ -12,14 +12,16 @@
         </div>
     </form>
 
-    <div class="mt-2">
+    <div id="show-all-comments-{{ $post->id }}" class="mt-2">
         <a href="#" hx-get="{{ route('comments.index', $post->id) }}"
             hx-target="#show-all-comments-{{ $post->id }}" hx-swap="innerHTML"
             class="text-blue-500 hover:underline">
             Show all comments...
         </a>
     </div>
-
-    <div id="show-all-comments-{{ $post->id }}"></div>
 </div>
 
+<!-- This is the container for all comments -->
+<div id="comments-container-{{ $post->id }}">
+    @include('partials.comments', ['comments' => $post->comments])
+</div>

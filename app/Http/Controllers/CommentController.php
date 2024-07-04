@@ -9,7 +9,7 @@ class CommentController extends Controller
 {
     public function index($post_id)
     {
-        $comments = Comment::where('post_id', $post_id)->get();
+        $comments = Comment::where('post_id', $post_id)->orderBy('created_at', 'desc')->get() ?? collect();
 
         return view('partials.comments', compact('comments'));
     }
@@ -24,7 +24,7 @@ class CommentController extends Controller
         ]);
 
         try {
-            Comment::create([
+            $comment = Comment::create([
                 'user_id' => auth()->id(),
                 'post_id' => $post_id,
                 'comment' => $request->comment,
@@ -32,8 +32,9 @@ class CommentController extends Controller
         } catch (\Throwable $th) {
             return back()->withErrors(['msg' => $th->getMessage()]);
         }
-        $comments = Comment::where('post_id', $post_id)->get();
-        $response = view('partials.comments', compact('comments'))->render();
+
+        // Return only the new comment partial view
+        $response = view('partials.single-comment', compact('comment'))->render();
 
         return response($response);
     }
