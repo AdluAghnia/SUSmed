@@ -28,12 +28,6 @@
                         <div id="like-button-{{ $post->id }}">
                             @include('partials.like', ['post' => $post])
                         </div>
-                        <div id="comment-form">
-                            @include('partials.add-comment', ['post' => $post])
-                        </div>
-
-                        <div id="show-all-comments-{{ $post->id }}"></div>
-
                     </div>
                 @empty
                     <div class="text-center">
