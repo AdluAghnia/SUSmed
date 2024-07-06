@@ -21,12 +21,19 @@
                         </div>
                         @if ($post->image)
                             <div class="mb-4">
-                                <img class="w-full h-auto rounded" src="{{ asset('storage/posts/' . $post->image) }}"
-                                    alt="post_image">
+                                <a href="{{ route('posts.show', $post) }}">
+                                    <img class="w-full h-auto rounded"
+                                        src="{{ asset('storage/posts/' . $post->image) }}" alt="post_image">
+                                </a>
+
                             </div>
                         @endif
                         <div id="like-button-{{ $post->id }}">
                             @include('partials.like', ['post' => $post])
+                        </div>
+                        <div class="overflow-y-auto h-64" id="comments-list"
+                            hx-get={{ route('comments.index', $post->id) }}>
+                            show all
                         </div>
                     </div>
                 @empty

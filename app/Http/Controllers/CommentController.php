@@ -11,7 +11,7 @@ class CommentController extends Controller
     {
         $comments = Comment::where('post_id', $post_id)->orderBy('created_at', 'desc')->get() ?? collect();
 
-        return view('partials.comments', compact('comments'));
+        return view('comments.index', compact('comments'));
     }
 
     /**
@@ -34,7 +34,7 @@ class CommentController extends Controller
         }
 
         // Return only the new comment partial view
-        $response = view('partials.single-comment', compact('comment'))->render();
+        $response = '<p> Comment Form </p>';
 
         return response($response);
     }

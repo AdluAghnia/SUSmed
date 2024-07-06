@@ -8,14 +8,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('posts.index');
-    Route::resource('posts', PostController::class)->except('index', 'edit', 'update', 'destroy');
+    Route::resource('posts', PostController::class)->except('index', 'show', 'edit', 'update', 'destroy');
     Route::get('posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
+    Route::get('posts/{post}', [PostController::class, 'show'])->name('posts.show');
     Route::patch('posts/{post}', [PostController::class, 'update'])->name('posts.update');
     Route::delete('posts/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
     Route::post('/post/{postId}/like', [LikeController::class, 'likePost'])->name('like.post');
     Route::delete('/post/{postId}/unlike', [LikeController::class, 'unlikePost'])->name('unlike.post');
     Route::get('/comments/{post}', [CommentController::class, 'index'])->name('comments.index');
-    Route::post('comment/{post_id}', [CommentController::class, 'store'])->name('comment.store');
+    Route::post('comments/{post_id}', [CommentController::class, 'store'])->name('comment.store');
     Route::get('/dashboard', [PostController::class, 'showPostByID'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
