@@ -31,9 +31,11 @@
                         <div id="like-button-{{ $post->id }}">
                             @include('partials.like', ['post' => $post])
                         </div>
-                        <div class="overflow-y-auto h-64" id="comments-list"
-                            hx-get={{ route('comments.index', $post->id) }}>
-                            show all
+                        <div class="btn btn-primary" id="comment-button">
+                            <a class="btn btn-primary" href="{{ route('comments.index', $post->id) }}">
+                                Comment
+                            </a>
+
                         </div>
                     </div>
                 @empty
