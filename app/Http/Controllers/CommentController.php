@@ -26,11 +26,11 @@ class CommentController extends Controller
     public function store(Request $request, $post_id)
     {
         $request->validate([
-            'comment' => 'required|min:5',
+            'comment' => 'required|min:1',
         ]);
 
         try {
-            $comment = Comment::create([
+            Comment::create([
                 'user_id' => auth()->id(),
                 'post_id' => $post_id,
                 'comment' => $request->comment,
@@ -39,7 +39,9 @@ class CommentController extends Controller
             return back()->withErrors(['msg' => $th->getMessage()]);
         }
 
+        $comments = Comment::where('post_id', $post_id)->orderBy('created_at', 'desc')->get() ?? collect();
+
         // Return newest comment from user
-        return view('comments.partials.comments', compact('comment'));
+        return view('comments.showAll', compact('comments'))->with(['msg' => 'comment successfully added']);
     }
 }

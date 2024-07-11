@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     // Comment Routes
     Route::get('comments/{post_id}', [CommentController::class, 'index'])->name('comments.index');
     Route::get('/comments/{post_id}/create', [CommentController::class, 'create'])->name('comments.create');
+    Route::post('/comments/{post_id}', [CommentController::class, 'store'])->name('comments.store');
 
     // Profile Routes
     Route::get('/dashboard', [PostController::class, 'showPostByID'])->name('dashboard');
