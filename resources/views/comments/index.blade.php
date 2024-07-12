@@ -1,9 +1,7 @@
 <x-app-layout>
     <!-- Post Details -->
     <div class="py-12">
-
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-
             <div class="container p-4 mx-auto max-w-2xl">
                 <div class="p-4 mx-auto mb-6 w-full bg-white rounded-lg shadow-md dark:bg-gray-800">
                     <div class="mb-4">
@@ -22,14 +20,12 @@
                             </a>
                         </div>
                     @endif
-                    <div id="like-button-{{ $post->id }}">
+                    <div id="like-button-{{ $post->id }}" class="mb-4">
                         @include('partials.like', ['post' => $post])
                     </div>
-                    <div class="btn btn-primary" id="comment-form" hx-get="{{ route('comments.create', $post_id) }}"
-                        hx-swap="outerHTML" hx-target="#comment-form">
-                        Add Comment
+                    <div id="comment-form-{{ $post->id }}" class="mb-4">
+                        @include('comments.create', ['post_id' => $post_id])
                     </div>
-
 
                     <div id="comments-list">
                         @forelse ($comments as $comment)
