@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -10,8 +11,9 @@ class CommentController extends Controller
     public function index($post_id)
     {
         $comments = Comment::where('post_id', $post_id)->orderBy('created_at', 'desc')->get() ?? collect();
+        $post = Post::where('id', $post_id)->first();
 
-        return view('comments.index', compact(['comments', 'post_id']));
+        return view('comments.index', compact(['comments', 'post_id', 'post']));
     }
 
     public function create($post_id)

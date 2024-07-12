@@ -1,8 +1,11 @@
-<div id=comments-list>
+<div id="comments-list">
     @forelse ($comments as $comment)
-        <p>{{ $comment->user->name }}</p>
-        <div class="p-2 mb-2 bg-white rounded shadow-md dark:bg-gray-700">
-            <p>{{ $comment->comment }}</p>
+        <p class="p-2"></p>
+        <div class="chat-header">
+            {{ $comment->user->name }}
+        </div>
+        <div class="chat chat-start">
+            <div class="chat-bubble chat-bubble-primary">{{ $comment->comment }}</div>
         </div>
     @empty
         <span>No Comment</span>

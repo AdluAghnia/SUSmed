@@ -25,17 +25,19 @@
                                     <img class="w-full h-auto rounded"
                                         src="{{ asset('storage/posts/' . $post->image) }}" alt="post_image">
                                 </a>
-
                             </div>
                         @endif
-                        <div id="like-button-{{ $post->id }}">
-                            @include('partials.like', ['post' => $post])
-                        </div>
-                        <div class="btn btn-primary" id="comment-button">
-                            <a class="btn btn-primary" href="{{ route('comments.index', $post->id) }}">
-                                Comment
-                            </a>
 
+                        <div class="flex justify-between" id="action-button-{{ $post->id }}">
+                            <div id="like-button-{{ $post->id }}">
+                                @include('partials.like', ['post' => $post])
+                            </div>
+
+                            <div id="comment-button-{{ $post->id }}">
+                                <a class="btn btn-primary" href="{{ route('comments.index', $post->id) }}">
+                                    Comment
+                                </a>
+                            </div>
                         </div>
                     </div>
                 @empty

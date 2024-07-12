@@ -10,9 +10,9 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
-        "image",
-        "caption",
-        "user_id",
+        'image',
+        'caption',
+        'user_id',
     ];
 
     // return owner of this post
