@@ -1,5 +1,5 @@
 <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data"
-    class="bg-white shadow-md rounded-lg p-4 mb-6 dark:bg-gray-800 dark:border-2 dark:border-sky-500">
+    class="bg-white shadow-md rounded-lg p-4 mb-6 dark:bg-gray-800 dark:border-2 border-indigo-500">
     @csrf
     <div class="mb-4">
         <label for="caption" class="block text-gray-700 dark:text-gray-200">Caption</label>

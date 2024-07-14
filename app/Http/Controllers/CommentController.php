@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
@@ -27,9 +28,15 @@ class CommentController extends Controller
      */
     public function store(Request $request, $post_id)
     {
-        $request->validate([
-            'comment' => 'required|min:1',
+        $validator = Validator::make($request->all(), [
+            'comment' => 'required|max:255',
         ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+
+            return view('comments.errors', compact('errors'));
+        }
 
         try {
             Comment::create([

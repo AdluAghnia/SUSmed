@@ -40,7 +40,6 @@
                             <span>No Comment</span>
                         @endforelse
                     </div>
-
                 </div>
             </div>
         </div>
