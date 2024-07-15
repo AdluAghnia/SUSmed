@@ -1,6 +1,6 @@
 @if ($errors)
     @foreach ($errors->all() as $error)
-        <p>{{ $error }}</p>
+        <p class="text-red-300">{{ $error }}</p>
     @endforeach
 @endif
 

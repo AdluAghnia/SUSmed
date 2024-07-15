@@ -1,6 +1,5 @@
-<div id="comments-list">
+<div id="comments-list" class="max-h-24 overflow-auto">
     @forelse ($comments as $comment)
-        <p class="p-2"></p>
         <div class="chat-header">
             {{ $comment->user->name }}
         </div>
