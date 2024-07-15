@@ -32,10 +32,13 @@ class CommentController extends Controller
             'comment' => 'required|max:255',
         ]);
 
+        $errors = null;
         if ($validator->fails()) {
             $errors = $validator->errors();
 
-            return view('comments.errors', compact('errors'));
+            $comments = Comment::where('post_id', $post_id)->orderBy('created_at', 'desc')->get() ?? collect();
+
+            return view('comments.errors', compact(['comments', 'errors']));
         }
 
         try {
@@ -51,6 +54,6 @@ class CommentController extends Controller
         $comments = Comment::where('post_id', $post_id)->orderBy('created_at', 'desc')->get() ?? collect();
 
         // Return newest comment from user
-        return view('comments.showAll', compact('comments'))->with(['msg' => 'comment successfully added']);
+        return view('comments.showAll', compact(['comments', 'errors']))->render();
     }
 }
