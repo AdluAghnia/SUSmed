@@ -11,9 +11,13 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@2.0.1"
+        integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous">
+    </script>
     <!-- Scripts -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://unpkg.com/htmx.org@1.7.0"></script>
     <script>
         document.addEventListener('htmx:configRequest', (event) => {
             const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');

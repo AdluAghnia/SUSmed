@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -74,7 +75,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('post.show', compact('post'));
+
+        $comments = Comment::where('post_id', $post->id)->orderBy('created_at', 'desc')->get() ?? collect();
+
+        return view('post.show', compact(['post', 'comments']));
     }
 
     /**

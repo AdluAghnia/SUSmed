@@ -11,4 +11,8 @@
             <img src="{{ asset('storage/posts/' . $post->image) }}" alt="post_image">
         @endif
     </div>
+
+    <div>
+        @include('comments.showAll', ['comments' => $comments])
+    </div>
 </x-app-layout>
